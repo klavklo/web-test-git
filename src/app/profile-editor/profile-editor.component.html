@@ -1,0 +1,64 @@
+<head>
+    <link rel="stylesheet" href="/src/styles.css">
+</head>
+<div class="card">
+    <form [formGroup]="profileForm">
+        <h3 class="text-3xl font-bold underline">Name</h3>
+    
+        <label for="first-name">First Name: </label>
+        <input id="first-name" type="text" formControlName="firstName">
+        <br><br>
+      
+        <label for="last-name">Last Name: </label>
+        <input id="last-name" type="text" formControlName="lastName">
+      
+      </form>
+      <form [formGroup]= "profileForm" (ngSubmit)= "onSubmit()" ></form>
+      
+</div>
+
+
+  <br>
+  <div formGroupName="address" class="card">
+    <h3>Address</h3>
+  
+    <label for="street">Street: </label>
+    <input id="street" type="text" formControlName="street">
+    <br><br>
+  
+    <label for="city">City: </label>
+    <input id="city" type="text" formControlName="city">
+    <br><br>
+  
+    <label for="state">State: </label>
+    <input id="state" type="text" formControlName="state">
+    <br><br>
+  
+    <label for="zip">Zip Code: </label>
+    <input id="zip" type="text" formControlName="zip">
+    <br><br>
+
+    <div formArrayName="aliases">
+        <h3>Aliases</h3>
+        <button type="button" (click)= "addAlias()">+ Add another alias</button>
+      
+        <div *ngFor= "let alias of aliases.controls; let i=index">
+          <!-- The repeated alias template -->
+          <label for="alias-{{ i }}">Alias:</label>
+          <input id="alias-{{ i }}" type="text" [formControlName]="i">
+
+        </div>
+      </div>
+  </div>
+  <br>
+
+<div class="card">
+    <p>Complete the form to enable button.</p>
+    <button type="submit" [disabled]= "!profileForm.valid" class="btn btn-info">Submit</button>
+    
+    
+    <p>Form Status: {{ profileForm.status }}</p>
+    <br>
+    <button type="button" (click)= "updateProfile()">Update Profile</button>
+    
+</div>
